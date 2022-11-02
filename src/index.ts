@@ -9,6 +9,8 @@ const run = async (): Promise<void> => {
   const token = core.getInput("GITHUB_TOKEN");
   const octokit = github.getOctokit(token);
 
+  console.log("octokit in da house", octokit);
+
   //Checks if there have been a pull request
   if (!request) {
     console.log("No pull request found");
@@ -43,12 +45,13 @@ const run = async (): Promise<void> => {
     message += " @" + userNames[i];
   }
 
+  console.log(message);
   //Commenting on the PR
-  octokit.issues.createComment({
-    ...github.context.repo,
-    issue_number: request.number,
-    body: message
-  });
+  // octokit.issues.createComment({
+  //   ...github.context.repo,
+  //   issue_number: request.number,
+  //   body: message
+  // });
 };
 
 const changesToString = (change: Change[]): string => {
