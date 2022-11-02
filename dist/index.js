@@ -13087,7 +13087,6 @@ const run = async () => {
     const request = github.context.payload.pull_request;
     const token = core.getInput("GITHUB_TOKEN");
     const octokit = github.getOctokit(token);
-    console.log("octokit in da house", octokit);
     //Checks if there have been a pull request
     if (!request) {
         console.log("No pull request found");
@@ -13102,7 +13101,9 @@ const run = async () => {
     //Retrieves the usernames of the authors of the modified code
     const emails = await getAuthors(changes).catch(err => (0, utils_1.handle)("Failed to fetch author emails", err, []));
     core.debug(`Author emails ${emails.toString()}`);
+    console.log("Author emails: ", emails.toString());
     let userNames = await (0, utils_1.getUserNames)(emails).catch(() => []);
+    console.log("usernames: ", userNames);
     userNames = userNames.filter(name => name !== github.context.actor);
     if (userNames.length == 0) {
         console.log("No users to be alerted");
@@ -13115,11 +13116,11 @@ const run = async () => {
     }
     console.log(message);
     //Commenting on the PR
-    // octokit.issues.createComment({
-    //   ...github.context.repo,
-    //   issue_number: request.number,
-    //   body: message
-    // });
+    octokit.rest.issues.createComment({
+        ...github.context.repo,
+        issue_number: request.number,
+        body: message
+    });
 };
 const changesToString = (change) => {
     let res = "";

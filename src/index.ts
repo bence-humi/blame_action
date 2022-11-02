@@ -9,8 +9,6 @@ const run = async (): Promise<void> => {
   const token = core.getInput("GITHUB_TOKEN");
   const octokit = github.getOctokit(token);
 
-  console.log("octokit in da house", octokit);
-
   //Checks if there have been a pull request
   if (!request) {
     console.log("No pull request found");
@@ -31,7 +29,9 @@ const run = async (): Promise<void> => {
     handle("Failed to fetch author emails", err, [])
   );
   core.debug(`Author emails ${emails.toString()}`);
+  console.log("Author emails: ", emails.toString());
   let userNames: string[] = await getUserNames(emails).catch(() => []);
+  console.log("usernames: ", userNames);
   userNames = userNames.filter(name => name !== github.context.actor);
 
   if (userNames.length == 0) {
@@ -47,11 +47,11 @@ const run = async (): Promise<void> => {
 
   console.log(message);
   //Commenting on the PR
-  // octokit.issues.createComment({
-  //   ...github.context.repo,
-  //   issue_number: request.number,
-  //   body: message
-  // });
+  octokit.rest.issues.createComment({
+    ...github.context.repo,
+    issue_number: request.number,
+    body: message
+  });
 };
 
 const changesToString = (change: Change[]): string => {
