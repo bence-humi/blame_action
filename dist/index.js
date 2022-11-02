@@ -13097,6 +13097,7 @@ const run = async () => {
         data: ""
     }));
     const changes = (0, utils_1.parseDiff)(res.data);
+    console.log("Changes: ", changesToString(changes));
     core.debug(`Changes ${changesToString(changes)}`);
     //Retrieves the usernames of the authors of the modified code
     const emails = await getAuthors(changes).catch(err => (0, utils_1.handle)("Failed to fetch author emails", err, []));

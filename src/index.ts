@@ -22,6 +22,7 @@ const run = async (): Promise<void> => {
     })
   );
   const changes: Change[] = parseDiff(res.data);
+  console.log("Changes: ", changesToString(changes));
   core.debug(`Changes ${changesToString(changes)}`);
 
   //Retrieves the usernames of the authors of the modified code
