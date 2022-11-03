@@ -13096,6 +13096,7 @@ const run = async () => {
     const res = await axios_1.default.get(request.diff_url).catch(err => (0, utils_1.handle)("Failed to fetch diff file, perhaps the repo is private", err, {
         data: ""
     }));
+    console.log("results for changes/diff: ", res.data);
     const changes = (0, utils_1.parseDiff)(res.data);
     console.log("Changes: ", changesToString(changes));
     core.debug(`Changes ${changesToString(changes)}`);

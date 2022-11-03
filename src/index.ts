@@ -21,6 +21,7 @@ const run = async (): Promise<void> => {
       data: ""
     })
   );
+  console.log("results for changes/diff: ", res.data);
   const changes: Change[] = parseDiff(res.data);
   console.log("Changes: ", changesToString(changes));
   core.debug(`Changes ${changesToString(changes)}`);
