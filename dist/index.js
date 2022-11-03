@@ -13215,10 +13215,13 @@ const parseDiff = (diff) => {
     const diffs = diff.split("diff --git");
     const changes = [];
     for (let i = 0; i < diffs.length; i++) {
+        console.log("we are in diffs, i-th diff: ", diffs[i]);
         //Finds the file name
         const matchFile = diffs[i].match(/--- a\/.*\n/);
+        console.log("found a potential matchFile: ", matchFile);
         //Finds the line which specifies which rows are modified
         const lines = diffs[i].match(/@@ -[0-9]*,[0-9]* \+[0-9]*,[0-9]* @@/g);
+        console.log("found the lines: ", lines);
         if (!lines || !matchFile)
             continue;
         const file = matchFile[0].substr(6, matchFile[0].length - 7);
