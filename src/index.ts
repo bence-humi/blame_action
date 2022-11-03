@@ -31,9 +31,9 @@ const run = async (): Promise<void> => {
   );
   core.debug(`Author emails ${emails.toString()}`);
   console.log("Author emails: ", emails.toString());
-  let userNames: string[] = await getUserNames(emails).catch(() => []);
+  const userNames: string[] = await getUserNames(emails).catch(() => []);
   console.log("usernames: ", userNames);
-  userNames = userNames.filter(name => name !== github.context.actor);
+  // userNames = userNames.filter(name => name !== github.context.actor);
 
   if (userNames.length == 0) {
     console.log("No users to be alerted");

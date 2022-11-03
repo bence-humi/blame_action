@@ -13103,9 +13103,9 @@ const run = async () => {
     const emails = await getAuthors(changes).catch(err => (0, utils_1.handle)("Failed to fetch author emails", err, []));
     core.debug(`Author emails ${emails.toString()}`);
     console.log("Author emails: ", emails.toString());
-    let userNames = await (0, utils_1.getUserNames)(emails).catch(() => []);
+    const userNames = await (0, utils_1.getUserNames)(emails).catch(() => []);
     console.log("usernames: ", userNames);
-    userNames = userNames.filter(name => name !== github.context.actor);
+    // userNames = userNames.filter(name => name !== github.context.actor);
     if (userNames.length == 0) {
         console.log("No users to be alerted");
         return;
